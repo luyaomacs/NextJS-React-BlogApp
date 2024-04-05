@@ -1,29 +1,60 @@
-// TEMPORARY DATA
-const users = [
-  { id: 1, name: "John" },
-  { id: 2, name: "Jane" },
-];
+import { Post, User } from "./models";
+import { connectToDb } from "./utils";
 
-const posts = [
-  { id: 1, title: "Post 1", body: "......", userId: 1 },
-  { id: 2, title: "Post 2", body: "......", userId: 1 },
-  { id: 3, title: "Post 3", body: "......", userId: 2 },
-  { id: 4, title: "Post 4", body: "......", userId: 2 },
-];
+// TEMPORARY DATA
+// const users = [
+//   { id: 1, name: "John" },
+//   { id: 2, name: "Jane" },
+// ];
+
+// const posts = [
+//   { id: 1, title: "Post 1", body: "......", userId: 1 },
+//   { id: 2, title: "Post 2", body: "......", userId: 1 },
+//   { id: 3, title: "Post 3", body: "......", userId: 2 },
+//   { id: 4, title: "Post 4", body: "......", userId: 2 },
+// ];
 
 
 export const getPosts = async () => {
-    console.log("called getPosts");
-    return posts;
+    try{
+      connectToDb(); // call function to connect db
+      const posts = await Post.find();
+      return posts;
+    } catch(err){
+      console.log(err)
+      throw new Error("Failed to fetch posts")
+    }
 }
 
-export const getPost = async (id) => {
-    return posts.find((post) => post.id === parseInt(id));
+export const getPost = async (slug) => {
+  try{
+    connectToDb(); // call function to connect db
+    const post = await Post.findOne({slug: slug}); //find returns an array
+    return post;
+  } catch(err){
+    console.log(err)
+    throw new Error("Failed to fetch post")
+  }
+}
+
+export const getUsers = async () => {
+  try{
+    connectToDb(); // call function to connect db
+    const users = await User.find();
+    return users;
+  } catch(err){
+    console.log(err)
+    throw new Error("Failed to fetch users")
+  }
 }
 
 export const getUser = async (id) => {
-    console.log("called getUser");
-    const user = users.find((user) => user.id === parseInt(id));
-    console.log(user);
+  try{
+    connectToDb(); // call function to connect db
+    const user = await User.findById(id);
     return user;
+  } catch(err){
+    console.log(err)
+    throw new Error("Failed to fetch user")
+  }
 }
