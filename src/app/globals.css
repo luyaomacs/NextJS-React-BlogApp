@@ -1,0 +1,38 @@
+:root{
+    --bg: #0d0c22;
+    --bgsoft: #2d2b42;
+    --text: white;
+    --textsoft: #e5e5e5;
+    --btn: #3673fd;
+}
+/* We can use these variables in any component or page, bcz it is the parent css */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* The universal selector */
+
+body{
+    background-color: var(--bgsoft);
+    color:var(--textsoft);
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    /* The color would be inherit from the parent */
+}
+
+.container{
+    background-color: var(--bg);
+    width: 100vw;
+    margin: auto;
+    padding-left: 50px;
+    padding-right: 50px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
