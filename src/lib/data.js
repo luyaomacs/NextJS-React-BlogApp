@@ -1,5 +1,6 @@
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
+import { unstable_noStore as noStore } from "next/cache";
 
 // TEMPORARY DATA
 // const users = [
@@ -27,6 +28,7 @@ export const getPosts = async () => {
 }
 
 export const getPost = async (slug) => {
+  noStore();
   try{
     connectToDb(); // call function to connect db
     const post = await Post.findOne({slug: slug}); //find returns an array

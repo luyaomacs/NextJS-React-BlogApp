@@ -1,7 +1,12 @@
-"use client"
-
+import type { Metadata } from "next";
 import Image from "next/image";
 import styles from "./contact.module.css"
+
+export const metadata: Metadata = {
+    title: "Contact",
+    description: "Contact description",
+};
+
 
 const ContactPage = () => {
     const a = Math.random()

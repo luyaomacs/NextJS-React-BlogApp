@@ -5,16 +5,26 @@ import { Suspense } from "react";
 import { getPost } from "@/lib/data";
 
 
+export const generateMetadata = async ({params}) => {
+    const {slug} = params;
+    const post = await getPost(slug);
+    return {
+        title: post.title,
+        description: post.desc
+    }
+}
+
+
 // FETCH DATA WITH AN API
-// const getData = async (slug) => {
-//     const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`, {next:{revalidate:3600}}) //data fetch
+const getData = async (slug) => {
+    const res = await fetch(`http://localhost:3000/api/blog/${slug}`, {next:{revalidate:3600}}) //data fetch
 
-//     if(!res.ok){
-//         throw new Error("Failed to fetch data")
-//     }
+    if(!res.ok){
+        throw new Error("Failed to fetch data")
+    }
 
-//     return res.json()
-// }
+    return res.json()
+}
 
 
 const SinglePostPage = async ({params}) => {
@@ -22,10 +32,10 @@ const SinglePostPage = async ({params}) => {
     const {slug} = params; // blog/params
 
     // FETCH DATA WITH AN API
-    // const post = await getData(slug); // get the data that has id=slug
+    const post = await getData(slug); // get the data that has id=slug
 
     // FETCH DATA WITHOUT AN API
-    const post = await getPost(slug);
+    // const post = await getPost(slug);
 
     console.log(post);
 
